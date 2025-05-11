@@ -7,11 +7,8 @@ import {
   Card,
   CardContent,
   Container,
-  Paper,
   Typography,
 } from "@mui/material";
-import "../design/styles.css";
-import "bootstrap/dist/css/bootstrap.min.css";
 import ProfileAboutMe from "./profileAboutMe";
 import Header from "./Header";
 import Feed from "./feed";

@@ -1,8 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import "../design/styles.css";
-import "bootstrap/dist/css/bootstrap.min.css";
 
 interface User {
   _id: string;

@@ -11,7 +11,7 @@ interface FeedProps {
   userName?: string;
 }
 
-export default function Feed({ feed, userId, userName }: FeedProps) {
+export default function Feed({ feed, userId }: FeedProps) {
   const title = userId ? "Your Posts" : "Feed";
 
   return (

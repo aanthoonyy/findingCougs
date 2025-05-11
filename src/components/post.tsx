@@ -1,17 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import "../design/styles.css";
-import "bootstrap/dist/css/bootstrap.min.css";
-import {
-  Box,
-  Button,
-  Card,
-  CardContent,
-  TextField,
-  Typography,
-  Paper,
-} from "@mui/material";
+import { useState } from "react";
+import { Box, Button, TextField, Typography, Paper } from "@mui/material";
 
 export interface PostProps {
   onCreatePost: (text: string) => Promise<void>;

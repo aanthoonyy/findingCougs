@@ -1,30 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import {
-  AppBar,
-  Box,
-  Button,
-  Card,
-  CardContent,
-  Container,
-  IconButton,
-  InputBase,
-  Paper,
-  Toolbar,
-  Typography,
-  TextField,
-} from "@mui/material";
-import {
-  Home as HomeIcon,
-  Group as GroupIcon,
-  Notifications as NotificationsIcon,
-  Work as WorkIcon,
-  Person as PersonIcon,
-  Search as SearchIcon,
-} from "@mui/icons-material";
-import "../design/styles.css";
-import "bootstrap/dist/css/bootstrap.min.css";
+import { useState } from "react";
+import { Box, Button, TextField, Typography } from "@mui/material";
 
 export interface User {
   _id: string;
@@ -38,14 +14,8 @@ export interface User {
   aboutMe?: string;
 }
 
-interface SearchResult {
-  _id: string;
-  name: string;
-  username: string;
-}
-
 export interface ProfileAboutMeProps {
-  user: User;
+  user: User | undefined;
   onUpdateInfo: (info: {
     aboutMe: string | null;
     major: string | null;
@@ -90,17 +60,17 @@ function ProfileAboutMe({ user, onUpdateInfo }: ProfileAboutMeProps) {
     <>
       <Box sx={{ mb: 4 }}>
         <Box sx={{ display: "flex", flexDirection: "column", gap: 1, mb: 2 }}>
-          <Typography>Major: {user.major || "Not specified"}</Typography>
-          <Typography>Age: {user.age || "Not specified"}</Typography>
+          <Typography>Major: {user?.major || "Not specified"}</Typography>
+          <Typography>Age: {user?.age || "Not specified"}</Typography>
           <Typography>
-            Ethnicity: {user.ethnicity || "Not specified"}
+            Ethnicity: {user?.ethnicity || "Not specified"}
           </Typography>
         </Box>
         <Typography variant="h6" gutterBottom>
           About Me
         </Typography>
         <Typography paragraph>
-          {user.aboutMe || "No about me information yet."}
+          {user?.aboutMe || "No about me information yet."}
         </Typography>
       </Box>
 

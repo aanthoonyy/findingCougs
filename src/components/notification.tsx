@@ -1,17 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import "../design/styles.css";
-import "bootstrap/dist/css/bootstrap.min.css";
-import {
-  Box,
-  Container,
-  Typography,
-  Button,
-  TextField,
-  Paper,
-  Badge,
-} from "@mui/material";
+import { Box, Container, Typography, Paper } from "@mui/material";
 import NotificationList from "./NotificationList";
 import Header from "./Header";
 

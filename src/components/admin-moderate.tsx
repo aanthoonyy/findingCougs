@@ -1,15 +1,24 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import "../design/styles.css";
-import "bootstrap/dist/css/bootstrap.min.css";
+
+interface User {
+  _id: string;
+  name: string;
+  username: string;
+  email: string;
+}
+
+interface ModerationItem {
+  id: string;
+  content: string;
+  status: "pending" | "approved" | "rejected";
+}
 
 function AdminModerate() {
-  const [user, setUser] = useState(null);
-  const [postText, setPostText] = useState("");
-  const [query, setQuery] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
-  const [feed, setFeed] = useState([]);
+  const [user, setUser] = useState<User | null>(null);
+  const [moderationItems, setModerationItems] = useState<ModerationItem[]>([]);
+  const [moderationComment, setModerationComment] = useState("");
 
   const navigate = useNavigate();
 
@@ -20,11 +29,11 @@ function AdminModerate() {
       return;
     }
 
-    const parsedUser = JSON.parse(storedUser);
+    const parsedUser = JSON.parse(storedUser) as User;
     fetchFullUser(parsedUser._id);
   }, [navigate]);
 
-  const fetchFullUser = async (userId: any) => {
+  const fetchFullUser = async (userId: string) => {
     try {
       const response = await fetch(`http://localhost:5000/users/${userId}`);
       const data = await response.json();
@@ -39,6 +48,14 @@ function AdminModerate() {
       console.error("Error fetching user:", err);
       navigate("/login");
     }
+  };
+
+  const handleModerationSubmit = async (
+    e: React.FormEvent<HTMLFormElement>
+  ) => {
+    e.preventDefault();
+    // TODO: Implement moderation submission
+    console.log("Moderation comment:", moderationComment);
   };
 
   if (!user) {
@@ -59,18 +76,34 @@ function AdminModerate() {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>1</td>
-              <td>Example content here...</td>
-              <td>Pending</td>
-              <td>
-                <button className="btn btn-success btn-sm">Approve</button>
-                <button className="btn btn-danger btn-sm">Reject</button>
-              </td>
-            </tr>
+            {moderationItems.map((item) => (
+              <tr key={item.id}>
+                <td>{item.id}</td>
+                <td>{item.content}</td>
+                <td>{item.status}</td>
+                <td>
+                  <button
+                    className="btn btn-success btn-sm"
+                    onClick={() => {
+                      /* TODO: Implement approve */
+                    }}
+                  >
+                    Approve
+                  </button>
+                  <button
+                    className="btn btn-danger btn-sm"
+                    onClick={() => {
+                      /* TODO: Implement reject */
+                    }}
+                  >
+                    Reject
+                  </button>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
-        <form>
+        <form onSubmit={handleModerationSubmit}>
           <div className="mb-3">
             <label htmlFor="moderationComment" className="form-label">
               Moderation Comment
@@ -79,8 +112,10 @@ function AdminModerate() {
               className="form-control"
               id="moderationComment"
               rows={3}
+              value={moderationComment}
+              onChange={(e) => setModerationComment(e.target.value)}
               placeholder="Enter comments or actions..."
-            ></textarea>
+            />
           </div>
           <button type="submit" className="btn btn-primary">
             Submit Moderation
@@ -88,9 +123,12 @@ function AdminModerate() {
         </form>
 
         <div className="mt-3">
-          <a href="admin.html" className="btn btn-secondary">
+          <button
+            onClick={() => navigate("/admin")}
+            className="btn btn-secondary"
+          >
             Back to Admin Tasks
-          </a>
+          </button>
         </div>
       </div>
       <script

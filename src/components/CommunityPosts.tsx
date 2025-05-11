@@ -1,4 +1,3 @@
-import React from "react";
 import { Box, List, Paper, Typography } from "@mui/material";
 
 interface Post {

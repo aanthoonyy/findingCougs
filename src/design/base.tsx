@@ -1,4 +1,3 @@
-import { red } from "@mui/material/colors";
 import Paper from "@mui/material/Paper";
 import { createTheme, styled } from "@mui/material/styles";
 
@@ -70,12 +69,6 @@ export const theme = createTheme({
   },
 });
 
-// export const Item = styled(Paper)(({ theme }) => ({
-//     // backgroundColor: theme.palette.primary.main,
-//     ...theme.typography.body2,
-//     padding: theme.spacing(1),
-//     textAlign: 'center',
-// }))
 export const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: "#fff",
   ...theme.typography.body2,

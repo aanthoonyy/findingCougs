@@ -1,19 +1,48 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import "../design/styles.css";
-import "bootstrap/dist/css/bootstrap.min.css";
 import { useLocation } from "react-router";
 
+interface User {
+  _id: string;
+  name: string;
+  username: string;
+  following: Array<{ _id: string }>;
+}
+
+interface Post {
+  _id: string;
+  text: string;
+  createdAt: string;
+}
+
+interface Community {
+  _id: string;
+  name: string;
+  members: string[];
+}
+
+interface SearchResult {
+  _id: string;
+  name: string;
+  username: string;
+}
+
+interface LocationState {
+  community: Community;
+}
+
 function Group() {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<User | null>(null);
   const [postText, setPostText] = useState("");
   const [query, setQuery] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
-  const [feed, setFeed] = useState([]);
-  const [communities, setCommunities] = useState<any[]>([]);
-  const [findCommunity, setFindCommunity] = useState([]);
-  const { state } = useLocation();
+  const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
+  const [feed, setFeed] = useState<
+    Array<{ _id: string; name: string; posts: Post[] }>
+  >([]);
+  const [communities, setCommunities] = useState<Community[]>([]);
+  const [findCommunity, setFindCommunity] = useState<any[]>([]);
+  const { state } = useLocation() as { state: LocationState };
 
   const navigate = useNavigate();
 
@@ -23,7 +52,7 @@ function Group() {
       navigate("/login");
       return;
     }
-    const parsedUser = JSON.parse(storedUser);
+    const parsedUser = JSON.parse(storedUser) as User;
     setUser(parsedUser);
     fetchCommunities();
   }, [navigate]);
@@ -38,7 +67,7 @@ function Group() {
     }
   };
 
-  const handleSearch = async (e) => {
+  const handleSearch = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!query) return;
 
@@ -54,7 +83,7 @@ function Group() {
     }
   };
 
-  const handleFollow = async (targetId) => {
+  const handleFollow = async (targetId: string) => {
     if (!user) return;
 
     try {
@@ -97,21 +126,12 @@ function Group() {
       console.error("Error fetching feed:", err);
     }
   };
-  const gotoHome = async (e) => {
-    navigate("/homepage");
-  };
-  const gotoNet = async (e) => {
-    navigate("/network");
-  };
-  const gotoNotif = async (e) => {
-    navigate("/notification");
-  };
-  const gotoJob = async (e) => {
-    navigate("/jobs");
-  };
-  const gotoProfile = async (e) => {
-    navigate("/profile");
-  };
+
+  const gotoHome = () => navigate("/homepage");
+  const gotoNet = () => navigate("/network");
+  const gotoNotif = () => navigate("/notification");
+  const gotoJob = () => navigate("/jobs");
+  const gotoProfile = () => navigate("/profile");
 
   const gotoPosts = async (communityId: string) => {
     if (!user) return;
@@ -133,6 +153,7 @@ function Group() {
       alert("Failed to find community");
     }
   };
+
   const gotoPeople = async (communityId: string) => {
     if (!user) return;
     try {
@@ -165,118 +186,120 @@ function Group() {
   if (!user) {
     return <div>Loading...</div>;
   }
-  if (state.community) {
-    return (
-      <div className="primary">
-        <form onSubmit={handleSearch} className="padding10 rightAlign">
-          <input
-            type="text"
-            placeholder="Search"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            className="margin10 bodyText"
-          />
-          <button type="submit" className="buttonText">
-            Search
-          </button>
-        </form>
-        <div className="leftAlign">
-          {searchResults.map((result) => (
-            <div
-              key={result._id}
-              className="bodyText secondary margin10 padding10"
-            >
-              {result._id !== user._id &&
-                !user.following?.some((f) => f._id === result._id) && (
-                  <button
-                    onClick={() => handleFollow(result._id)}
-                    className="buttonText marginLeft10"
-                  >
-                    Follow
-                  </button>
-                )}
-              <strong>{result.username}</strong> ({result.name})
-            </div>
-          ))}
-        </div>
-        <div className="row navbar">
-          <div className="col d-flex rightAlign">
-            <div className="navbarContent text bodyText">
-              <a onClick={gotoHome} className="navbarConentLink text">
-                Home
-              </a>
-            </div>
-            <div className="navbarContent text bodyText">
-              <a onClick={gotoNet} className="navbarConentLink text">
-                Groups
-              </a>
-            </div>
-            <div className="navbarContent text bodyText">
-              <a onClick={gotoNotif} className="navbarConentLink text">
-                Notifications
-              </a>
-            </div>
-            <div className="navbarContent text bodyText">
-              <a onClick={gotoJob} className="navbarConentLink text">
-                Jobs
-              </a>
-            </div>
-            <div className="navbarContent text bodyText">
-              <a onClick={gotoProfile} className="navbarConentLink text">
-                My Profile
-              </a>
-            </div>
+
+  if (!state.community) {
+    gotoNet();
+    return null;
+  }
+
+  return (
+    <div className="primary">
+      <form onSubmit={handleSearch} className="padding10 rightAlign">
+        <input
+          type="text"
+          placeholder="Search"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          className="margin10 bodyText"
+        />
+        <button type="submit" className="buttonText">
+          Search
+        </button>
+      </form>
+      <div className="leftAlign">
+        {searchResults.map((result) => (
+          <div
+            key={result._id}
+            className="bodyText secondary margin10 padding10"
+          >
+            {result._id !== user._id &&
+              !user.following?.some((f) => f._id === result._id) && (
+                <button
+                  onClick={() => handleFollow(result._id)}
+                  className="buttonText marginLeft10"
+                >
+                  Follow
+                </button>
+              )}
+            <strong>{result.username}</strong> ({result.name})
           </div>
-        </div>
-        <div className="row paddingTop20 center">
-          <div className="col border10 margin20 secondary text-center">
-            <div className="name margin10">{state.community.name}</div>
-            <div className="row center marginTop10 marginBottom10 grey">
-              <div className="col d-flex center">
-                <a
-                  onClick={() => gotoPosts(state.community._id)}
-                  className="text bodyText marginLeft10 marginRight10 center"
-                >
-                  Posts
-                </a>
-                <a
-                  onClick={() => gotoPeople(state.community._id)}
-                  className="text bodyText marginLeft10 marginRight10 center"
-                >
-                  People
-                </a>
-              </div>
-            </div>
-            <div className="row center marginTop10 marginBottom10">
-              <div className="col d-flex center"></div>
-            </div>
-            <h3 className="heading center">Feed</h3>
-            {Array.isArray(feed) &&
-              feed.map((u) => (
-                <div key={u._id}>
-                  <ul className="bodyText">
-                    {u.posts?.map((post: any, idx: any) => (
-                      <ul
-                        key={idx}
-                        className="grey margin10 padding10 border border-danger"
-                      >
-                        <ul className="post">{post.text}</ul>
-                        <ul className="postFooter">
-                          (Created by: {u.name} | Created:{" "}
-                          {new Date(post.createdAt).toLocaleString()})
-                        </ul>
-                      </ul>
-                    ))}
-                  </ul>
-                </div>
-              ))}
+        ))}
+      </div>
+      <div className="row navbar">
+        <div className="col d-flex rightAlign">
+          <div className="navbarContent text bodyText">
+            <a onClick={gotoHome} className="navbarConentLink text">
+              Home
+            </a>
+          </div>
+          <div className="navbarContent text bodyText">
+            <a onClick={gotoNet} className="navbarConentLink text">
+              Groups
+            </a>
+          </div>
+          <div className="navbarContent text bodyText">
+            <a onClick={gotoNotif} className="navbarConentLink text">
+              Notifications
+            </a>
+          </div>
+          <div className="navbarContent text bodyText">
+            <a onClick={gotoJob} className="navbarConentLink text">
+              Jobs
+            </a>
+          </div>
+          <div className="navbarContent text bodyText">
+            <a onClick={gotoProfile} className="navbarConentLink text">
+              My Profile
+            </a>
           </div>
         </div>
       </div>
-    );
-  } else {
-    return gotoNet();
-  }
+      <div className="row paddingTop20 center">
+        <div className="col border10 margin20 secondary text-center">
+          <div className="name margin10">{state.community.name}</div>
+          <div className="row center marginTop10 marginBottom10 grey">
+            <div className="col d-flex center">
+              <a
+                onClick={() => gotoPosts(state.community._id)}
+                className="text bodyText marginLeft10 marginRight10 center"
+              >
+                Posts
+              </a>
+              <a
+                onClick={() => gotoPeople(state.community._id)}
+                className="text bodyText marginLeft10 marginRight10 center"
+              >
+                People
+              </a>
+            </div>
+          </div>
+          <div className="row center marginTop10 marginBottom10">
+            <div className="col d-flex center"></div>
+          </div>
+          <h3 className="heading center">Feed</h3>
+          {Array.isArray(feed) &&
+            feed.map((u) => (
+              <div key={u._id}>
+                <ul className="bodyText">
+                  {u.posts?.map((post, idx) => (
+                    <ul
+                      key={idx}
+                      className="grey margin10 padding10 border border-danger"
+                    >
+                      <ul className="post">{post.text}</ul>
+                      <ul className="postFooter">
+                        (Created by: {u.name} | Created:{" "}
+                        {new Date(post.createdAt).toLocaleString()})
+                      </ul>
+                    </ul>
+                  ))}
+                </ul>
+              </div>
+            ))}
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export default Group;

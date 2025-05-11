@@ -1,4 +1,3 @@
-import React from "react";
 import { List, Paper, Typography } from "@mui/material";
 
 interface Member {

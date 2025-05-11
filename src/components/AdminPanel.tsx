@@ -19,10 +19,8 @@ import {
   Divider,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { useNavigate } from "react-router-dom";
 
 function AdminPanel() {
-  const navigate = useNavigate();
   //0 - Jobs, 1 - Communities, 2 - Users
   const [tabIndex, setTabIndex] = useState(0);
 

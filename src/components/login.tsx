@@ -11,8 +11,6 @@ import {
   Paper,
   Divider,
 } from "@mui/material";
-import "../design/styles.css";
-import "bootstrap/dist/css/bootstrap.min.css";
 
 interface User {
   _id: string;
@@ -35,7 +33,7 @@ function Login() {
   const [name, setName] = useState("");
   const [username, setUsername] = useState("");
 
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState<User[]>([]);
 
   const navigate = useNavigate();
 
@@ -72,7 +70,7 @@ function Login() {
         ? { email, password }
         : { name, username, email, password };
 
-      let result = await fetch(url, {
+      let response = await fetch(url, {
         method: "POST",
         body: JSON.stringify(body),
         headers: {
@@ -80,7 +78,7 @@ function Login() {
         },
       });
 
-      result = await result.json();
+      const result: LoginResponse = await response.json();
 
       if (isLogin) {
         if (result && result.success) {

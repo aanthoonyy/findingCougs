@@ -12,7 +12,7 @@ interface ProfilePostsProps {
   userId?: string;
 }
 
-function ProfilePosts({ posts, userName, userId }: ProfilePostsProps) {
+function ProfilePosts({ posts, userName }: ProfilePostsProps) {
   return (
     <Box sx={{ mt: 4 }}>
       <Typography variant="h6" gutterBottom>
