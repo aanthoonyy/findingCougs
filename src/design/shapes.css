@@ -1,0 +1,53 @@
+.circle {
+    border-radius: 50%;
+    height: 80px;
+    width: 80px;
+    background-color: lightgrey;
+    line-height: 17px;
+    font-size: 15px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    margin: 3px;    
+}
+.headPhoto {
+    height: 200px;
+    background-color: lightgrey;
+    line-height: 17px;
+    font-size: 15px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    margin-top: 10px; 
+    margin-bottom: 10px;   
+}
+.circle1 {
+    border-radius: 50%;
+    height: 45px;
+    width: 45px;
+    background-color: black;
+    align-items: center;
+    display: flex;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.frame {
+    border: 0px solid;
+    justify-content: center;
+    padding: 0px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.feed {
+    display: flex;
+}
+/* .marginFeedGroup {
+    height: 250px;
+    width: 400px;
+    margin-left: 250px;
+}
+.marginFeedMain {
+    height: 200px;
+    width: 300px;
+    margin-left: 100px;
+} */

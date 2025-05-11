@@ -1,0 +1,62 @@
+/* BORDERS */
+.border10 {
+    border: 10px;
+}
+
+/* MARGINS */
+.margin20 {
+    margin: 20px;
+}
+.margin10 {
+    margin: 10px;
+}
+.marginTop10 {
+    margin-top: 10px;
+}
+.marginTop20 {
+    margin-top: 20px;
+}
+.marginLeft10 {
+    margin-left: 10px;
+}
+.marginRight10 {
+    margin-right: 10px;
+}
+.marginBottom10 {
+    margin-bottom: 10px;
+}
+.marginLeft30 {
+    margin-left: 30px;
+}
+
+/* PADDING */
+.paddingTop20 {
+    padding-top: 20px;
+}
+.padding10 {
+    padding: 10px;
+}
+
+/* ALL SIDES */
+.side0 {
+    border: 0px;
+    margin: 0px;
+    padding: 0px
+}
+
+/* ALIGNMENT OF TEXT AND OBJECTS */
+.rightAlign {
+    justify-content: right;
+    align-items: right;
+    text-align: right;
+}
+.leftAlign {
+    justify-content: left;
+    align-items: left;
+    text-align: left;
+}
+.center {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}

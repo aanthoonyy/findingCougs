@@ -1,0 +1,14 @@
+.primary {
+    background-color: maroon;
+    /* background-size: cover; */
+    height: 100vh;
+}
+.secondary {
+    background-color: white;
+}
+.text {
+    color: black;
+}
+.grey {
+    background-color: lightgray;
+}
