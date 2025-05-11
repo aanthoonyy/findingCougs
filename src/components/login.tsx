@@ -89,8 +89,6 @@ function Login() {
       if (isLogin) {
         if (result && result.success) {
           localStorage.setItem("user", JSON.stringify(result.user));
-
-          alert("Login successful!");
           navigate("/homepage");
         } else {
           alert(result.error || "Invalid credentials");
@@ -98,7 +96,6 @@ function Login() {
       } else {
         if (result && result.success) {
           localStorage.setItem("user", JSON.stringify(result.user));
-          alert("Account created successfully!");
           navigate("/homepage");
         } else {
           alert(result.error || "Something went wrong creating account");

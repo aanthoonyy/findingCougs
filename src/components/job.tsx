@@ -69,7 +69,6 @@ function Job() {
       );
       const data = await response.json();
       if (data.success) {
-        alert("Applied successfully!");
         fetchJobs();
       } else {
         alert(data.error || "Failed to apply for job");

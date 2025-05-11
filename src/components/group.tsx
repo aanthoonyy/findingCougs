@@ -69,7 +69,6 @@ function Group() {
       const data = await response.json();
 
       if (data.success) {
-        alert("Followed successfully!");
         if (data.user) {
           localStorage.setItem("user", JSON.stringify(data.user));
           setUser(data.user);
