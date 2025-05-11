@@ -1,11 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import "../design/main.css";
-import "../design/colors.css";
-import "../design/shapes.css";
-import "../design/alignment.css";
-import "../design/text.css";
+import "../design/styles.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
   Box,

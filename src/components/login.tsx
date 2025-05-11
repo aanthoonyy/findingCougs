@@ -11,11 +11,7 @@ import {
   Paper,
   Divider,
 } from "@mui/material";
-import "../design/main.css";
-import "../design/colors.css";
-import "../design/shapes.css";
-import "../design/alignment.css";
-import "../design/text.css";
+import "../design/styles.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 interface User {
