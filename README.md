@@ -180,9 +180,3 @@ The application should now be running at:
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Acknowledgments
-
-- Washington State University
-- Cougar community
-- All contributors to the project
