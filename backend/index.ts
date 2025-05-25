@@ -10,9 +10,11 @@ const jobRoutes = require('./routes/jobRoutes');
 const notificationRoutes = require('./routes/notificationRoutes');
 // const config = require('./config.json');
 
+const mongoUrl = process.env.MONGO_URL
+
 mongoose
   .connect(
-    'mongodb+srv://anthony:TOcOGhI3BFEdPOAk@cluster0.knetr.mongodb.net/sample_mflix?retryWrites=true&w=majority',
+    'mongoUrl',
     {
       dbName: 'sample_mflix',
       useNewUrlParser: true,
